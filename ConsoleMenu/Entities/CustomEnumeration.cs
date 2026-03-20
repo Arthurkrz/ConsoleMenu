@@ -5,11 +5,10 @@
         protected CustomEnumeration(int id, string value)
         {
             Id = id;
-            Value = value;
+            Value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        public Type
-        public int Id { get; set; }
-        public string Value { get; set; }
+        public int Id { get; }
+        public string Value { get; }
     }
 }

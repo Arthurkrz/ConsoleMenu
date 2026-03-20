@@ -10,7 +10,7 @@ namespace ConsoleMenu.IOC
         public static IServiceCollection AddGenericOptions(this IServiceCollection services)
         {
             services.AddSingleton<IConsoleWrapper, ConsoleWrapper>();
-            services.AddSingleton<IConsoleInputOptionSelector<CustomEnumeration>, ConsoleInputOptionSelector<CustomEnumeration>>();
+            services.AddSingleton<IConsoleMenuSelector<CustomEnumeration>, ConsoleMenuSelector<CustomEnumeration>>();
             return services;
         }
     }

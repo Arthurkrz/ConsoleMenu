@@ -8,8 +8,7 @@ namespace ConsoleMenu
         static void Main(string[] args)
         {
             var console = new ConsoleWrapper();
-            var menu = new ConsoleInputOptionSelector<CustomEnumeration>(console);
-            menu.ObtainOption(options);
+            var menu = new ConsoleMenuSelector<CustomEnumeration>(console);
         }
     }
 }

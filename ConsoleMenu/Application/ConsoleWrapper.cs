@@ -6,10 +6,11 @@ namespace ConsoleMenu.Application
     {
         public ConsoleKeyInfo ReadKey() => Console.ReadKey();
 
-        public void WriteLine(string value) => Console.WriteLine(value);
+        public void WriteLine(string value = null!) => Console.WriteLine(value);
 
         public void WriteLineColored(string value, ConsoleColor color)
         {
+            var previousColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
             WriteLine(value);
             Console.ResetColor();
