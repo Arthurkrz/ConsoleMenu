@@ -1,20 +1,21 @@
 ﻿using ConsoleMenu.Contracts;
 using ConsoleMenu.Entities;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsoleMenu.Application
 {
-    public class ConsoleMenuExecutor
+    public class ConsoleMenuExecutor : IConsoleMenuExecutor
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IEnumerable<IConsoleMenuHandler> _handlers;
 
-        public ConsoleMenuExecutor(IServiceProvider serviceProvider)
+        public ConsoleMenuExecutor(IEnumerable<IConsoleMenuHandler> handlers)
         {
-            _serviceProvider = serviceProvider;
+            _handlers = handlers;
         }
 
         public void Execute(ConsoleMenuOption option)
         {
+            ArgumentNullException.ThrowIfNull(option);
+
             if (option.Action is not null)
             {
                 option.Action();
@@ -23,13 +24,12 @@ namespace ConsoleMenu.Application
 
             if (!string.IsNullOrWhiteSpace(option.HandlerKey))
             {
-                var handlers = _serviceProvider.GetService<IConsoleMenuHandler>();
-                var handler = handlers.FirstOrDefault(x => x.Key == option.HandlerKey);
+                var handler = _handlers.FirstOrDefault(x => x.Key == option.HandlerKey);
 
                 if (handler is null)
                     throw new InvalidOperationException($"No handler registered for key '{option.HandlerKey}'.");
 
-                handler.Execute(option);
+                handler.Execute();
                 return;
             }
 

@@ -1,5 +1,4 @@
 ﻿using ConsoleMenu.Application;
-using ConsoleMenu.Entities;
 
 namespace ConsoleMenu
 {
@@ -8,7 +7,7 @@ namespace ConsoleMenu
         static void Main(string[] args)
         {
             var console = new ConsoleWrapper();
-            var menu = new ConsoleMenuSelector<CustomEnumeration>(console);
+            var menu = new ConsoleMenuSelector(console);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace ConsoleMenu.Application
         
         private string AskAndReadOption()
         {
-            _console.WriteLine();
+            _console.WriteLine("\nSelect an option:");
             return _console.ReadKey().KeyChar.ToString();
         }
 

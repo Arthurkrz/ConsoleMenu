@@ -12,7 +12,7 @@ namespace ConsoleMenu.Application
         {
             var previousColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
-            WriteLine(value);
+            Console.WriteLine(value);
             Console.ResetColor();
         }
     }

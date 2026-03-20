@@ -2,8 +2,8 @@
 
 namespace ConsoleMenu.Contracts
 {
-    public interface IConsoleMenuSelector<T> where T : CustomEnumeration
+    public interface IConsoleMenuSelector
     {
-        T ObtainOption(IEnumerable<T> options);
+        ConsoleMenuOption ObtainOption(IEnumerable<ConsoleMenuOption> options);
     }
 }

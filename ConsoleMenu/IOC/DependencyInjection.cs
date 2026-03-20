@@ -1,16 +1,17 @@
 ﻿using ConsoleMenu.Application;
 using ConsoleMenu.Contracts;
-using ConsoleMenu.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsoleMenu.IOC
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddGenericOptions(this IServiceCollection services)
+        public static IServiceCollection AddConsoleMenu(this IServiceCollection services)
         {
             services.AddSingleton<IConsoleWrapper, ConsoleWrapper>();
-            services.AddSingleton<IConsoleMenuSelector<CustomEnumeration>, ConsoleMenuSelector<CustomEnumeration>>();
+            services.AddSingleton<IConsoleMenuSelector, ConsoleMenuSelector>();
+            services.AddSingleton<IConsoleMenuExecutor, ConsoleMenuExecutor>();
+
             return services;
         }
     }

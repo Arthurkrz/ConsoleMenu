@@ -15,10 +15,18 @@
         public Action? Action { get; }
         public string? HandlerKey { get; }
 
-        public static ConsoleMenuOption Create(int id, string value, Action action) =>
-            new(id, value, action, null);
+        public static ConsoleMenuOption Create(int id, string value, Action action)
+        {
+            ArgumentNullException.ThrowIfNull(action);
+            return new ConsoleMenuOption(id, value, action, null);
+        }
 
-        public static ConsoleMenuOption CreateWithHandler(int id, string value, string handlerKey) =>
-            new(id, value, null, handlerKey);
+        public static ConsoleMenuOption CreateWithHandler(int id, string value, string handlerKey)
+        {
+            if (string.IsNullOrWhiteSpace(handlerKey))
+                throw new ArgumentException("Handler key cannot be empty.");
+
+            return new ConsoleMenuOption(id, value, null, handlerKey);
+        }
     }
 }
