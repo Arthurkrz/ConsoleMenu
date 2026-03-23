@@ -19,6 +19,7 @@ namespace ConsoleMenu.Application
             if (optionList.Any())
                 throw new InvalidOperationException("No options provided.");
 
+            ValidateDuplicateIds(optionList);
             ShowOptions(optionList);
 
             while (true)
@@ -32,7 +33,7 @@ namespace ConsoleMenu.Application
                     return selectedOption;
                 }
 
-                _console.WriteLineColored($"\n\"{response}\" is not a value option.\n", ConsoleColor.Red);
+                _console.WriteLineColored($"\n\"{response}\" is not a valid option.\n", ConsoleColor.Red);
             }
         }
 
@@ -56,6 +57,18 @@ namespace ConsoleMenu.Application
 
             foreach (var option in options)
                 _console.WriteLine($"[{option.Id}] - {option.Value}");
+        }
+
+        private static void ValidateDuplicateIds(IEnumerable<ConsoleMenuOption> options)
+        {
+            var duplicateIds = options
+                .GroupBy(x => x.Id)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList();
+
+            if (duplicateIds.Any())
+                throw new InvalidOperationException($"Duplicate option IDs found: {string.Join(", ", duplicateIds)}");
         }
     }
 }

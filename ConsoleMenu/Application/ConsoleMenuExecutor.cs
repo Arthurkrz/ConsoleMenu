@@ -7,18 +7,23 @@ namespace ConsoleMenu.Application
     {
         private readonly IEnumerable<IConsoleMenuHandler> _handlers;
 
-        public ConsoleMenuExecutor(IEnumerable<IConsoleMenuHandler> handlers)
+        public ConsoleMenuExecutor(IEnumerable<IConsoleMenuHandler>? handlers)
         {
-            _handlers = handlers;
+            _handlers = handlers?.ToList() ?? new List<IConsoleMenuHandler>();
+            ValidateDuplicateHandlerKeys(_handlers);
         }
 
-        public void Execute(ConsoleMenuOption option)
+        public void Execute(ConsoleMenuOption option, bool clearBeforeSelection = true, bool clearAfterExecution = true)
         {
             ArgumentNullException.ThrowIfNull(option);
 
             if (option.Action is not null)
             {
+                if (clearBeforeSelection) Console.Clear();
+
                 option.Action();
+
+                if (clearAfterExecution) Console.Clear();
                 return;
             }
 
@@ -34,6 +39,18 @@ namespace ConsoleMenu.Application
             }
 
             throw new InvalidOperationException("Option has no action or handler key configured.");
+        }
+
+        private static void ValidateDuplicateHandlerKeys(IEnumerable<IConsoleMenuHandler> handlers)
+        {
+            var duplicateKeys = handlers
+                .GroupBy(x => x.Key)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList();
+
+            if (duplicateKeys.Any())
+                throw new InvalidOperationException($"Duplicate handler keys found: {string.Join(", ", duplicateKeys)}");
         }
     }
 }
