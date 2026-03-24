@@ -1,9 +1,9 @@
-﻿using ConsoleMenu.Tests.Contracts.Handler;
+﻿using ConsoleMenu.Contracts;
 using ConsoleMenu.Tests.Contracts.Service;
 
 namespace ConsoleMenu.Tests.Handlers
 {
-    public class CreateOrderHandler : ICreateOrderHandler
+    public class CreateOrderHandler : IConsoleMenuHandler
     {
         private readonly IOrderService _orderService;
 

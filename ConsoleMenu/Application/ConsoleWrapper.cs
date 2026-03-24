@@ -6,6 +6,14 @@ namespace ConsoleMenu.Application
     {
         public ConsoleKeyInfo ReadKey() => Console.ReadKey();
 
+        public void Clear() => Console.Clear();
+
+        public void ContinueAfterInput()
+        {
+            Console.WriteLine("\nPress any key to continue!", ConsoleColor.Green);
+            Console.ReadKey();
+        }
+
         public void WriteLine(string value = null!) => Console.WriteLine(value);
 
         public void WriteLineColored(string value, ConsoleColor color)

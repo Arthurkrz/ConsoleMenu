@@ -1,44 +1,58 @@
 ﻿using ConsoleMenu.Contracts;
 using ConsoleMenu.Entities;
+using ConsoleMenu.Enum;
 
 namespace ConsoleMenu.Application
 {
     public class ConsoleMenuExecutor : IConsoleMenuExecutor
     {
         private readonly IEnumerable<IConsoleMenuHandler> _handlers;
+        private readonly IConsoleWrapper _console;
 
-        public ConsoleMenuExecutor(IEnumerable<IConsoleMenuHandler>? handlers)
+        public ConsoleMenuExecutor(IEnumerable<IConsoleMenuHandler>? handlers, IConsoleWrapper console)
         {
             _handlers = handlers?.ToList() ?? new List<IConsoleMenuHandler>();
             ValidateDuplicateHandlerKeys(_handlers);
+
+            _console = console;
         }
 
-        public void Execute(ConsoleMenuOption option, bool clearBeforeSelection = true, bool clearAfterExecution = true)
+        public MenuExecutionResult Execute(ConsoleMenuOption option)
         {
             ArgumentNullException.ThrowIfNull(option);
 
-            if (option.Action is not null)
+            switch (option.Kind)
             {
-                if (clearBeforeSelection) Console.Clear();
+                case ConsoleMenuOptionKind.Action:
+                    if (option.Action is null)
+                        throw new InvalidOperationException($"Option '{option.Value}' has no action configured.");
 
-                option.Action();
+                    option.Action();
+                    _console.ContinueAfterInput();
+                    _console.Clear();
+                    return MenuExecutionResult.Continue;
 
-                if (clearAfterExecution) Console.Clear();
-                return;
+                case ConsoleMenuOptionKind.Handler:
+                    if (string.IsNullOrWhiteSpace(option.HandlerKey))
+                        throw new InvalidOperationException($"Option '{option.HandlerKey}' has no handler registered.");
+
+                    var handler = _handlers.FirstOrDefault(x => x.Key == option.HandlerKey);
+
+                    if (handler is null)
+                        throw new InvalidOperationException($"Option '{option.HandlerKey}' has no handler registered.");
+
+                    handler.Execute();
+                    _console.ContinueAfterInput();
+                    _console.Clear();
+                    return MenuExecutionResult.Continue;
+
+                case ConsoleMenuOptionKind.Exit:
+                    return MenuExecutionResult.Exit;
+
+                default:
+                    throw new InvalidOperationException(
+                        $"Unsupported option kind '{option.Kind}'.");
             }
-
-            if (!string.IsNullOrWhiteSpace(option.HandlerKey))
-            {
-                var handler = _handlers.FirstOrDefault(x => x.Key == option.HandlerKey);
-
-                if (handler is null)
-                    throw new InvalidOperationException($"No handler registered for key '{option.HandlerKey}'.");
-
-                handler.Execute();
-                return;
-            }
-
-            throw new InvalidOperationException("Option has no action or handler key configured.");
         }
 
         private static void ValidateDuplicateHandlerKeys(IEnumerable<IConsoleMenuHandler> handlers)

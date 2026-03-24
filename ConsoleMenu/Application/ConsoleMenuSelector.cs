@@ -16,7 +16,7 @@ namespace ConsoleMenu.Application
         {
             var optionList = options?.ToList() ?? throw new ArgumentNullException(nameof(options));
 
-            if (optionList.Any())
+            if (!optionList.Any())
                 throw new InvalidOperationException("No options provided.");
 
             ValidateDuplicateIds(optionList);
@@ -29,11 +29,14 @@ namespace ConsoleMenu.Application
 
                 if (selectedOption is not null)
                 {
-                    _console.WriteLineColored($"\n\"{selectedOption.Value}\" selected", ConsoleColor.Cyan);
+                    _console.Clear();
+                    _console.WriteLineColored($"\"{selectedOption.Value}\" selected\n", ConsoleColor.Cyan);
                     return selectedOption;
                 }
 
-                _console.WriteLineColored($"\n\"{response}\" is not a valid option.\n", ConsoleColor.Red);
+                _console.Clear();
+                _console.WriteLineColored($"\"{response}\" is not a valid option.\n", ConsoleColor.Red);
+                ShowOptions(optionList);
             }
         }
 
@@ -53,8 +56,6 @@ namespace ConsoleMenu.Application
 
         private void ShowOptions(IEnumerable<ConsoleMenuOption> options)
         {
-            _console.WriteLine();
-
             foreach (var option in options)
                 _console.WriteLine($"[{option.Id}] - {option.Value}");
         }

@@ -1,9 +1,9 @@
-﻿using ConsoleMenu.Tests.Contracts.Handler;
+﻿using ConsoleMenu.Contracts;
 using ConsoleMenu.Tests.Contracts.Service;
 
 namespace ConsoleMenu.Tests.Handlers
 {
-    public class GenerateDailyReportHandler : IGenerateDailyReportHandler
+    public class GenerateDailyReportHandler : IConsoleMenuHandler
     {
         private readonly IReportService _reportService;
 
