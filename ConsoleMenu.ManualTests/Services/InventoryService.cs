@@ -1,6 +1,6 @@
-﻿using ConsoleMenu.Tests.Contracts.Service;
+﻿using ConsoleMenu.ManualTests.Contracts.Service;
 
-namespace ConsoleMenu.Tests.Services
+namespace ConsoleMenu.ManualTests.Services
 {
     public class InventoryService : IInventoryService
     {

@@ -1,6 +1,6 @@
 ﻿using ConsoleMenu.IOC;
-using ConsoleMenu.Tests;
-using ConsoleMenu.Tests.IOC;
+using ConsoleMenu.ManualTests;
+using ConsoleMenu.ManualTests.IOC;
 using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection()

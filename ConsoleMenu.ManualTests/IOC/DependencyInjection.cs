@@ -1,10 +1,10 @@
 ﻿using ConsoleMenu.Contracts;
-using ConsoleMenu.Tests.Contracts.Service;
-using ConsoleMenu.Tests.Handlers;
-using ConsoleMenu.Tests.Services;
+using ConsoleMenu.ManualTests.Contracts.Service;
+using ConsoleMenu.ManualTests.Handlers;
+using ConsoleMenu.ManualTests.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ConsoleMenu.Tests.IOC
+namespace ConsoleMenu.ManualTests.IOC
 {
     public static class DependencyInjection
     {

@@ -1,4 +1,4 @@
-﻿namespace ConsoleMenu.Tests.Contracts.Service
+﻿namespace ConsoleMenu.ManualTests.Contracts.Service
 {
     public interface IOrderService
     {

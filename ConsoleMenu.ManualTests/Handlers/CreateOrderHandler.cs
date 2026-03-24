@@ -1,7 +1,7 @@
 ﻿using ConsoleMenu.Contracts;
-using ConsoleMenu.Tests.Contracts.Service;
+using ConsoleMenu.ManualTests.Contracts.Service;
 
-namespace ConsoleMenu.Tests.Handlers
+namespace ConsoleMenu.ManualTests.Handlers
 {
     public class CreateOrderHandler : IConsoleMenuHandler
     {
