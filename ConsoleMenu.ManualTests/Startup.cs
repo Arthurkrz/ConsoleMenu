@@ -32,7 +32,7 @@ namespace ConsoleMenu.ManualTests
             var menu = new ConsoleMenuSetup();
 
             menu.AddOption(1, "Create order", () => orderService.CreateOrder())
-                .AddOption(1, "Generate daily report", () => reportService.GenerateDailyReport())
+                .AddOption(2, "Generate daily report", () => reportService.GenerateDailyReport())
                 .AddExitOption(3, "Exit");
 
             menu.Run();

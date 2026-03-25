@@ -1,9 +1,8 @@
 ﻿using ConsoleMenu.Application;
 using ConsoleMenu.Entities;
-using ConsoleMenu.Tests.UnitTests.Utilities;
-using Xunit;
+using ConsoleMenu.Tests.Utilities;
 
-namespace ConsoleMenu.ManualTests.UnitTests
+namespace ConsoleMenu.Tests
 {
     public class ConsoleMenuSetupTests
     {

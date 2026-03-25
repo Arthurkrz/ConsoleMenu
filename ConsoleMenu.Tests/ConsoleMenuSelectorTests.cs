@@ -1,14 +1,18 @@
 ﻿using ConsoleMenu.Application;
 using ConsoleMenu.Entities;
-using ConsoleMenu.Tests.UnitTests.Utilities;
-using Xunit;
+using ConsoleMenu.Tests.Utilities;
 
-namespace ConsoleMenu.ManualTests.UnitTests
+namespace ConsoleMenu.Tests
 {
     public class ConsoleMenuSelectorTests
     {
         private readonly FakeWrapper _console = new();
-        private readonly ConsoleMenuSelector _sut = new(new FakeWrapper());
+        private readonly ConsoleMenuSelector _sut;
+
+        public ConsoleMenuSelectorTests()
+        {
+            _sut = new ConsoleMenuSelector(_console);
+        }
 
         [Fact]
         public void ObtainOption_ShouldReturnCorrectOption()

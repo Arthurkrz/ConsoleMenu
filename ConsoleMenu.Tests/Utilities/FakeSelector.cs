@@ -1,7 +1,7 @@
 ﻿using ConsoleMenu.Contracts;
 using ConsoleMenu.Entities;
 
-namespace ConsoleMenu.Tests.UnitTests.Utilities
+namespace ConsoleMenu.Tests.Utilities
 {
     public class FakeSelector : IConsoleMenuSelector
     {

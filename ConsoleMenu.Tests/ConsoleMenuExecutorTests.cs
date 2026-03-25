@@ -2,11 +2,10 @@
 using ConsoleMenu.Contracts;
 using ConsoleMenu.Entities;
 using ConsoleMenu.Enum;
-using ConsoleMenu.Tests.UnitTests.Utilities;
+using ConsoleMenu.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 
-namespace ConsoleMenu.ManualTests.UnitTests
+namespace ConsoleMenu.Tests
 {
     public class ConsoleMenuExecutorTests
     {

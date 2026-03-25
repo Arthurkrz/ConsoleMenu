@@ -1,9 +1,11 @@
 ﻿using ConsoleMenu.Contracts;
 
-namespace ConsoleMenu.Tests.UnitTests.Utilities
+namespace ConsoleMenu.Tests.Utilities
 {
     public class FakeWrapper : IConsoleWrapper
     {
+        public bool SkipPause { get; set; } = true;
+
         private readonly Queue<ConsoleKeyInfo> _keys = new();
 
         public List<string> WrittenLines { get; } = new();
@@ -11,11 +13,13 @@ namespace ConsoleMenu.Tests.UnitTests.Utilities
 
         public void ContinueAfterInput()
         {
-            Console.WriteLine("\nPress any key to continue!", ConsoleColor.Green);
-            Console.ReadKey();
+            if (SkipPause) return;
+
+            ColoredLines.Add(("\nPress any key to continue!", ConsoleColor.Green));
+            ReadKey();
         }
 
-        public void Clear() => Console.Clear();
+        public void Clear() { }
 
         public void EnqueueKey(char key) => _keys.Enqueue(new ConsoleKeyInfo(key, (ConsoleKey)char.ToUpperInvariant(key), false, false, false));
 

@@ -2,11 +2,10 @@
 using ConsoleMenu.Entities;
 using ConsoleMenu.Enum;
 using ConsoleMenu.IOC;
-using ConsoleMenu.Tests.UnitTests.Utilities;
+using ConsoleMenu.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 
-namespace ConsoleMenu.ManualTests.UnitTests
+namespace ConsoleMenu.Tests
 {
     public class DependencyInjectionTests
     {
@@ -17,7 +16,8 @@ namespace ConsoleMenu.ManualTests.UnitTests
             var services = new ServiceCollection();
 
             services.AddConsoleMenu();
-            services.AddSingleton<IConsoleMenuHandler, FakeHandler>();
+            services.AddSingleton<IConsoleWrapper, FakeWrapper>();
+            services.AddSingleton<IConsoleMenuHandler>(new FakeHandler("test"));
 
             var provider = services.BuildServiceProvider();
             var executor = provider.GetRequiredService<IConsoleMenuExecutor>();

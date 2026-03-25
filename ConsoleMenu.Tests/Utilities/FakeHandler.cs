@@ -1,6 +1,6 @@
 ﻿using ConsoleMenu.Contracts;
 
-namespace ConsoleMenu.Tests.UnitTests.Utilities
+namespace ConsoleMenu.Tests.Utilities
 {
     public class FakeHandler : IConsoleMenuHandler
     {

@@ -2,7 +2,7 @@
 using ConsoleMenu.Entities;
 using ConsoleMenu.Enum;
 
-namespace ConsoleMenu.Tests.UnitTests.Utilities
+namespace ConsoleMenu.Tests.Utilities
 {
     public class FakeExecutor : IConsoleMenuExecutor
     {

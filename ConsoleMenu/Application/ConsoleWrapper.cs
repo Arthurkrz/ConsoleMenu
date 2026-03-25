@@ -10,8 +10,8 @@ namespace ConsoleMenu.Application
 
         public void ContinueAfterInput()
         {
-            Console.WriteLine("\nPress any key to continue!", ConsoleColor.Green);
-            Console.ReadKey();
+            WriteLineColored("\nPress any key to continue!", ConsoleColor.Green);
+            ReadKey();
         }
 
         public void WriteLine(string value = null!) => Console.WriteLine(value);

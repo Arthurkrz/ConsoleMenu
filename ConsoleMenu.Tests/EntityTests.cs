@@ -1,7 +1,6 @@
 ﻿using ConsoleMenu.Entities;
-using Xunit;
 
-namespace ConsoleMenu.ManualTests.UnitTests
+namespace ConsoleMenu.Tests
 {
     public class EntityTests
     {
