@@ -2,6 +2,6 @@
 {
     public interface IOrderService
     {
-        void CreateOrder();
+        Task CreateOrderAsync();
     }
 }

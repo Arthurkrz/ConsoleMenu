@@ -11,7 +11,7 @@ namespace ConsoleMenu.ManualTests.Services
             _inventoryService = inventoryService;
         }
 
-        public void CreateOrder()
+        public async Task CreateOrderAsync()
         {
             _inventoryService.ReserveItems();
             Console.WriteLine("Order successfully created.");

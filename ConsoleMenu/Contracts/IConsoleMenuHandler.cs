@@ -2,7 +2,7 @@
 {
     public interface IConsoleMenuHandler
     {
-        void Execute();
         string Key { get; }
+        Task ExecuteAsync();
     }
 }

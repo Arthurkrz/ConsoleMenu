@@ -4,7 +4,7 @@ namespace ConsoleMenu.Entities
 {
     public sealed class ConsoleMenuOption
     {
-        private ConsoleMenuOption(int id, string value, ConsoleMenuOptionKind kind, Action? action = null, string? handlerKey = null)
+        private ConsoleMenuOption(int id, string value, ConsoleMenuOptionKind kind, Func<Task>? asyncAction = null, string? handlerKey = null)
         {
             if (id <= 0) throw new ArgumentOutOfRangeException("ID must be greater than zero.");
             if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException("Value cannot be empty.");
@@ -12,17 +12,27 @@ namespace ConsoleMenu.Entities
             Id = id;
             Value = value;
             Kind = kind;
-            Action = action;
+            AsyncAction = asyncAction;
             HandlerKey = handlerKey;
         }
 
         public int Id { get; }
         public string Value { get; }
         public ConsoleMenuOptionKind Kind { get; }
-        public Action? Action { get; }
+        public Func<Task>? AsyncAction { get; }
         public string? HandlerKey { get; }
 
         public static ConsoleMenuOption Create(int id, string value, Action action)
+        {
+            ArgumentNullException.ThrowIfNull(action);
+            return new ConsoleMenuOption(id, value, ConsoleMenuOptionKind.Action, () =>
+            {
+                action();
+                return Task.CompletedTask;
+            });
+        }
+
+        public static ConsoleMenuOption CreateAsync(int id, string value, Func<Task> action)
         {
             ArgumentNullException.ThrowIfNull(action);
             return new ConsoleMenuOption(id, value, ConsoleMenuOptionKind.Action, action);

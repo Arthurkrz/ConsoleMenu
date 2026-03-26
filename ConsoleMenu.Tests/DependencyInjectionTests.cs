@@ -10,7 +10,7 @@ namespace ConsoleMenu.Tests
     public class DependencyInjectionTests
     {
         [Fact]
-        public void DependencyInjection_ShouldInjectHandlersIntoExecutor()
+        public async Task DependencyInjection_ShouldInjectHandlersIntoExecutor()
         {
             // Arrange
             var services = new ServiceCollection();
@@ -25,7 +25,7 @@ namespace ConsoleMenu.Tests
             var option = ConsoleMenuOption.CreateWithHandler(1, "Test", "test");
 
             // Act
-            var result = executor.Execute(option);
+            var result = await executor.ExecuteAsync(option);
 
             // Assert
             Assert.Equal(MenuExecutionResult.Continue, result);
