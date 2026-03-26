@@ -17,17 +17,17 @@ namespace ConsoleMenu.Application
             _console = console;
         }
 
-        public MenuExecutionResult Execute(ConsoleMenuOption option)
+        public async Task<MenuExecutionResult> ExecuteAsync(ConsoleMenuOption option)
         {
             ArgumentNullException.ThrowIfNull(option);
 
             switch (option.Kind)
             {
                 case ConsoleMenuOptionKind.Action:
-                    if (option.Action is null)
+                    if (option.AsyncAction is null)
                         throw new InvalidOperationException($"Option '{option.Value}' has no action configured.");
 
-                    option.Action();
+                    await option.AsyncAction();
                     _console.ContinueAfterInput();
                     _console.Clear();
                     return MenuExecutionResult.Continue;
@@ -41,7 +41,7 @@ namespace ConsoleMenu.Application
                     if (handler is null)
                         throw new InvalidOperationException($"Option '{option.HandlerKey}' has no handler registered.");
 
-                    handler.Execute();
+                    await handler.ExecuteAsync();
                     _console.ContinueAfterInput();
                     _console.Clear();
                     return MenuExecutionResult.Continue;

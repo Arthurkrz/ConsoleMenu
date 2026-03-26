@@ -11,7 +11,7 @@ namespace ConsoleMenu.ManualTests.Services
             _auditService = auditService;
         }
 
-        public void GenerateDailyReport()
+        public async Task GenerateDailyReportAsync()
         {
             _auditService.Register("Daily report requested.");
             Console.WriteLine("Daily report generated.");

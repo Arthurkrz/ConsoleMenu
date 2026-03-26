@@ -2,6 +2,6 @@
 {
     public interface IReportService
     {
-        void GenerateDailyReport();
+        Task GenerateDailyReportAsync();
     }
 }

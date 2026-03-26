@@ -7,7 +7,7 @@ namespace ConsoleMenu.Tests
     public class ConsoleMenuSetupTests
     {
         [Fact]
-        public void Run_ShouldLoopUntilExit()
+        public async Task Run_ShouldLoopUntilExit()
         {
             // Arrange
             var option = ConsoleMenuOption.Create(1, "Test", () => { });
@@ -21,7 +21,7 @@ namespace ConsoleMenu.Tests
             sut.AddExitOption(2, "Exit");
 
             // Act
-            sut.Run();
+            await sut.Run();
 
             // Assert
             Assert.Equal(3, executor.ExecutionCount);

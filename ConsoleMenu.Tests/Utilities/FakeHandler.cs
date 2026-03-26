@@ -12,6 +12,10 @@ namespace ConsoleMenu.Tests.Utilities
             Key = key;
         }
 
-        public void Execute() => IsExecuted = true;
+        public Task ExecuteAsync()
+        {
+            IsExecuted = true;
+            return Task.CompletedTask;
+        }
     }
 }

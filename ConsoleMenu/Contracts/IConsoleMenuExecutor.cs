@@ -5,6 +5,6 @@ namespace ConsoleMenu.Contracts
 {
     public interface IConsoleMenuExecutor
     {
-        MenuExecutionResult Execute(ConsoleMenuOption option);
+        Task<MenuExecutionResult> ExecuteAsync(ConsoleMenuOption option);
     }
 }
