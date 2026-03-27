@@ -4,8 +4,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsoleMenu.IOC
 {
+    /// <summary>
+    /// Dependency Injection class for complex configuration.
+    /// </summary>
     public static class DependencyInjection
     {
+        /// <summary>
+        /// Adds the necessary services for the console menu to the service collection.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddConsoleMenu(this IServiceCollection services)
         {
             services.AddSingleton<IConsoleWrapper, ConsoleWrapper>();

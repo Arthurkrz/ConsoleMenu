@@ -1,8 +1,23 @@
 ﻿namespace ConsoleMenu.Enum
 {
+    /// <summary>
+    /// Represents the result of a menu option, indicating 
+    /// whether to continue displaying the menu or exit it.
+    /// </summary>
     public enum MenuExecutionResult
     {
+        /// <summary>
+        /// Indicates that the menu loop should continue, 
+        /// allowing the user to select another option 
+        /// or perform additional actions.
+        /// </summary>
         Continue = 1,
+
+        /// <summary>
+        /// Indicates that the menu should be exited, 
+        /// terminating the menu loop with the application 
+        /// proceeding to any subsequent code after the menu execution.
+        /// </summary>
         Exit = 2
     }
 }
