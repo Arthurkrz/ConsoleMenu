@@ -21,7 +21,7 @@ namespace ConsoleMenu.ManualTests
             _consoleMenuExecutor = _serviceProvider.GetRequiredService<IConsoleMenuExecutor>();
         }
 
-        public void ExecuteWithoutHandlers()
+        public async Task ExecuteWithoutHandlers()
         {
             IInventoryService inventoryService = new InventoryService();
             IOrderService orderService = new OrderService(inventoryService);
@@ -31,14 +31,14 @@ namespace ConsoleMenu.ManualTests
 
             var menu = new ConsoleMenuSetup();
 
-            menu.AddOption(1, "Create order", () => orderService.CreateOrder())
-                .AddOption(2, "Generate daily report", () => reportService.GenerateDailyReport())
+            menu.AddOption(1, "Create order", () => orderService.CreateOrderAsync())
+                .AddOption(2, "Generate daily report", () => reportService.GenerateDailyReportAsync())
                 .AddExitOption(3, "Exit");
 
-            menu.Run();
+            await menu.Run();
         }
 
-        public void ExecuteWithHandlers()
+        public async Task ExecuteWithHandlers()
         {
             var menu = new ConsoleMenuSetup(_consoleMenuSelector, _consoleMenuExecutor);
 
@@ -46,7 +46,7 @@ namespace ConsoleMenu.ManualTests
                 .AddHandlerOption(2, "Generate daily report", "generate-daily-report")
                 .AddExitOption(3, "Exit");
 
-            menu.Run();
+            await menu.Run();
         }
     }
 }

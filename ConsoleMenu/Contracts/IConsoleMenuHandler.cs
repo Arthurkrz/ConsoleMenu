@@ -17,5 +17,6 @@
         /// should be executed when that option is selected.
         /// </summary>
         string Key { get; }
+        Task ExecuteAsync();
     }
 }

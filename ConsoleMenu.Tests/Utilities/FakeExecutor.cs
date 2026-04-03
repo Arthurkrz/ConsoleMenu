@@ -8,13 +8,16 @@ namespace ConsoleMenu.Tests.Utilities
     {
         public int ExecutionCount { get; private set; }
 
-        public MenuExecutionResult Execute(ConsoleMenuOption option)
+        public Task<MenuExecutionResult> ExecuteAsync(ConsoleMenuOption option)
         {
             ExecutionCount++;
 
-            return option.Kind == ConsoleMenuOptionKind.Exit ?
+            var result = option.Kind == 
+                ConsoleMenuOptionKind.Exit ?
                 MenuExecutionResult.Exit :
                 MenuExecutionResult.Continue;
+
+            return Task.FromResult(result);
         }
     }
 }

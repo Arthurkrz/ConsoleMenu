@@ -12,7 +12,7 @@ namespace ConsoleMenu.ManualTests.Handlers
             _reportService = reportService;
         }
 
-        public void Execute() => _reportService.GenerateDailyReport();
+        public async Task ExecuteAsync() => await _reportService.GenerateDailyReportAsync();
 
         public string Key => "generate-daily-report";
     }

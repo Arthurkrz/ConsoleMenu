@@ -11,14 +11,14 @@ namespace ConsoleMenu.Tests
         private ConsoleMenuExecutor _sut = new(Array.Empty<IConsoleMenuHandler>(), new FakeWrapper());
 
         [Fact]
-        public void Execute_ShouldRunAction()
+        public async Task ExecuteAsync_ShouldRunAction_WithNormalCreate()
         {
             // Arrange
             var called = false;
             var option = ConsoleMenuOption.Create(1, "Test", () => called = true);
 
             // Act
-            var result = _sut.Execute(option);
+            var result = await _sut.ExecuteAsync(option);
 
             // Assert
             Assert.True(called);
@@ -26,7 +26,26 @@ namespace ConsoleMenu.Tests
         }
 
         [Fact]
-        public void Execute_ShouldRunHandler()
+        public async Task ExecuteAsync_ShouldRunAction_WithCreateAsync()
+        {
+            // Arrange
+            var called = false;
+            var option = ConsoleMenuOption.CreateAsync(1, "Test", async () =>
+            {
+                called = true;
+                await Task.CompletedTask;
+            });
+
+            // Act
+            var result = await _sut.ExecuteAsync(option);
+
+            // Assert
+            Assert.True(called);
+            Assert.Equal(MenuExecutionResult.Continue, result);
+        }
+
+        [Fact]
+        public async Task ExecuteAsync_ShouldRunHandler()
         {
             // Arrange
             var handler = new FakeHandler("test");
@@ -35,7 +54,7 @@ namespace ConsoleMenu.Tests
             var option = ConsoleMenuOption.CreateWithHandler(1, "Test", "test");
 
             // Act
-            var result = _sut.Execute(option);
+            var result = await _sut.ExecuteAsync(option);
 
             // Assert
             Assert.True(handler.IsExecuted);
@@ -43,20 +62,20 @@ namespace ConsoleMenu.Tests
         }
 
         [Fact]
-        public void Execute_ShouldExit()
+        public async Task ExecuteAsync_ShouldExit()
         {
             // Arrange
             var option = ConsoleMenuOption.CreateExit(1, "Exit");
 
             // Act
-            var result = _sut.Execute(option);
+            var result = await _sut.ExecuteAsync(option);
 
             // Assert
             Assert.Equal(MenuExecutionResult.Exit, result);
         }
 
         [Fact]
-        public void Execute_ShouldThrowException_WhenDuplicateHandlers()
+        public void ExecuteAsync_ShouldThrowException_WhenDuplicateHandlers()
         {
             // Arrange
             var handlers = new[]
@@ -71,7 +90,7 @@ namespace ConsoleMenu.Tests
         }
 
         [Fact]
-        public void Execute_ShouldThrowException_WhenDIInjectsDuplicateHandlers()
+        public void ExecuteAsync_ShouldThrowException_WhenDIInjectsDuplicateHandlers()
         {
             // Arrange
             var services = new ServiceCollection();
@@ -89,13 +108,14 @@ namespace ConsoleMenu.Tests
         }
 
         [Fact]
-        public void Execute_ShouldThrowException_WhenHandlerNotFound()
+        public async Task ExecuteAsync_ShouldThrowException_WhenHandlerNotFound()
         {
             // Arrange
             var option = ConsoleMenuOption.CreateWithHandler(1, "Test", "missing");
 
             // Act & Assert
-            Assert.Throws<InvalidOperationException>(() => _sut.Execute(option));
+            await Assert.ThrowsAsync<InvalidOperationException>(() => 
+                _sut.ExecuteAsync(option));
         }
     }
 }

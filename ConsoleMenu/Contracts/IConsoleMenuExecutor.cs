@@ -22,5 +22,6 @@ namespace ConsoleMenu.Contracts
         /// <param name="option"></param>
         /// <returns></returns>
         MenuExecutionResult Execute(ConsoleMenuOption option);
+        Task<MenuExecutionResult> ExecuteAsync(ConsoleMenuOption option);
     }
 }

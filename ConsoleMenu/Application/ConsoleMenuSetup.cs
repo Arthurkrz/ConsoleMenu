@@ -68,6 +68,12 @@ namespace ConsoleMenu.Application
         /// <param name="value"></param>
         /// <param name="handlerKey"></param>
         /// <returns></returns>
+        public ConsoleMenuSetup AddOptionAsync(int id, string value, Func<Task> asyncAction)
+        {
+            _options.Add(ConsoleMenuOption.CreateAsync(id, value, asyncAction));
+            return this;
+        }
+
         public ConsoleMenuSetup AddHandlerOption(int id, string value, string handlerKey)
         {
             _options.Add(ConsoleMenuOption.CreateWithHandler(id, value, handlerKey));
@@ -100,11 +106,12 @@ namespace ConsoleMenu.Application
         /// executor to handle the execution logic for each selected option.
         /// </summary>
         public void Run()
+        public async Task Run()
         {
             while (true)
             {
                 var selectedOption = _selector.ObtainOption(_options);
-                var result = _executor.Execute(selectedOption);
+                var result = await _executor.ExecuteAsync(selectedOption);
 
                 if (result == MenuExecutionResult.Exit) break;
             }

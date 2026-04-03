@@ -12,7 +12,7 @@ namespace ConsoleMenu.ManualTests.Handlers
             _orderService = orderService;
         }
 
-        public void Execute() => _orderService.CreateOrder();
+        public async Task ExecuteAsync() => await _orderService.CreateOrderAsync();
 
         public string Key => "create-order";
     }
