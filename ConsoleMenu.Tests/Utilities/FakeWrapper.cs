@@ -2,7 +2,7 @@
 
 namespace ConsoleMenu.Tests.Utilities
 {
-    public class FakeWrapper : IConsoleWrapper
+    public class FakeWrapper : IConsoleMenuWrapper
     {
         public bool SkipPause { get; set; } = true;
 

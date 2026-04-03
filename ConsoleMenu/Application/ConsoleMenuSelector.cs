@@ -1,5 +1,4 @@
 ﻿using ConsoleMenu.Contracts;
-using ConsoleMenu.Entities;
 
 namespace ConsoleMenu.Application
 {
@@ -13,7 +12,7 @@ namespace ConsoleMenu.Application
     /// </summary>
     public class ConsoleMenuSelector : IConsoleMenuSelector
     {
-        private readonly IConsoleWrapper _console;
+        private readonly IConsoleMenuWrapper _console;
 
         /// <summary>
         /// Constructor for ConsoleMenuSelector, which takes an IConsoleWrapper as a dependency. 
@@ -22,7 +21,7 @@ namespace ConsoleMenu.Application
         /// interactions are implemented, allowing for custom behavior or testing without relying on direct console calls.
         /// </summary>
         /// <param name="console"></param>
-        public ConsoleMenuSelector(IConsoleWrapper console)
+        public ConsoleMenuSelector(IConsoleMenuWrapper console)
         {
             _console = console;
         }

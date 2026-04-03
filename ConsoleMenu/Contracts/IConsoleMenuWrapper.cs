@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface to abstract direct console operations, allowing specific customizations.
     /// </summary>
-    public interface IConsoleWrapper
+    public interface IConsoleMenuWrapper
     {
         /// <summary>
         /// Reads a key press from the console and returns the corresponding ConsoleKeyInfo.

@@ -16,7 +16,7 @@ namespace ConsoleMenu.IOC
         /// <returns></returns>
         public static IServiceCollection AddConsoleMenu(this IServiceCollection services)
         {
-            services.AddSingleton<IConsoleWrapper, ConsoleWrapper>();
+            services.AddSingleton<IConsoleMenuWrapper, ConsoleMenuWrapper>();
             services.AddSingleton<IConsoleMenuSelector, ConsoleMenuSelector>();
             services.AddSingleton<IConsoleMenuExecutor, ConsoleMenuExecutor>();
 

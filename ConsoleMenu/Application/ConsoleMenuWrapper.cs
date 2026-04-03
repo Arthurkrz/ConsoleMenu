@@ -6,7 +6,7 @@ namespace ConsoleMenu.Application
     /// A wrapper around the Console class to abstract away 
     /// direct interactions with the console and allow customizations.
     /// </summary>
-    public class ConsoleWrapper : IConsoleWrapper
+    public class ConsoleMenuWrapper : IConsoleMenuWrapper
     {
         /// <summary>
         /// Reads a key press from the console and 

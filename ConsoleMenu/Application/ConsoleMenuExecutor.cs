@@ -1,5 +1,4 @@
 ﻿using ConsoleMenu.Contracts;
-using ConsoleMenu.Entities;
 using ConsoleMenu.Enum;
 
 namespace ConsoleMenu.Application
@@ -16,7 +15,7 @@ namespace ConsoleMenu.Application
     public class ConsoleMenuExecutor : IConsoleMenuExecutor
     {
         private readonly IEnumerable<IConsoleMenuHandler> _handlers;
-        private readonly IConsoleWrapper _console;
+        private readonly IConsoleMenuWrapper _console;
 
         /// <summary>
         /// Constructor for ConsoleMenuExecutor, which takes an optional collection of IConsoleMenuHandler instances 
@@ -28,7 +27,7 @@ namespace ConsoleMenu.Application
         /// </summary>
         /// <param name="handlers"></param>
         /// <param name="console"></param>
-        public ConsoleMenuExecutor(IEnumerable<IConsoleMenuHandler>? handlers, IConsoleWrapper console)
+        public ConsoleMenuExecutor(IEnumerable<IConsoleMenuHandler>? handlers, IConsoleMenuWrapper console)
         {
             _handlers = handlers?.ToList() ?? new List<IConsoleMenuHandler>();
             ValidateDuplicateHandlerKeys(_handlers);

@@ -1,5 +1,4 @@
 ﻿using ConsoleMenu.Contracts;
-using ConsoleMenu.Entities;
 using ConsoleMenu.Enum;
 
 namespace ConsoleMenu.Application
@@ -21,8 +20,8 @@ namespace ConsoleMenu.Application
         /// the menu selector and executor with default implementations that use a console wrapper.
         /// </summary>
         public ConsoleMenuSetup() 
-            : this(new ConsoleMenuSelector(new ConsoleWrapper()), 
-                   new ConsoleMenuExecutor([], new ConsoleWrapper())) { }
+            : this(new ConsoleMenuSelector(new ConsoleMenuWrapper()), 
+                   new ConsoleMenuExecutor([], new ConsoleMenuWrapper())) { }
 
         /// <summary>
         /// Constructor for ConsoleMenuSetup that allows for dependency injection 

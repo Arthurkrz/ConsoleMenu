@@ -1,4 +1,4 @@
-﻿using ConsoleMenu.Entities;
+﻿using ConsoleMenu.Application;
 using ConsoleMenu.Enum;
 
 namespace ConsoleMenu.Contracts

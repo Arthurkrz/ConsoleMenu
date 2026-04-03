@@ -1,5 +1,5 @@
-﻿using ConsoleMenu.Contracts;
-using ConsoleMenu.Entities;
+﻿using ConsoleMenu.Application;
+using ConsoleMenu.Contracts;
 using ConsoleMenu.Enum;
 using ConsoleMenu.IOC;
 using ConsoleMenu.Tests.Utilities;
@@ -16,7 +16,7 @@ namespace ConsoleMenu.Tests
             var services = new ServiceCollection();
 
             services.AddConsoleMenu();
-            services.AddSingleton<IConsoleWrapper, FakeWrapper>();
+            services.AddSingleton<IConsoleMenuWrapper, FakeWrapper>();
             services.AddSingleton<IConsoleMenuHandler>(new FakeHandler("test"));
 
             var provider = services.BuildServiceProvider();

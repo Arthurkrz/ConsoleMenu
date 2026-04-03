@@ -1,6 +1,6 @@
 ﻿using ConsoleMenu.Enum;
 
-namespace ConsoleMenu.Entities
+namespace ConsoleMenu.Application
 {
     /// <summary>
     /// Class representing an option in the console menu. It contains properties for the option's ID, 
