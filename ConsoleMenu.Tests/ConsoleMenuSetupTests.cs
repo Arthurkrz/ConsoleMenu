@@ -1,5 +1,4 @@
 ﻿using ConsoleMenu.Application;
-using ConsoleMenu.Entities;
 using ConsoleMenu.Tests.Utilities;
 
 namespace ConsoleMenu.Tests
