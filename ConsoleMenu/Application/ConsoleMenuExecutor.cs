@@ -11,6 +11,7 @@ namespace ConsoleMenu.Application
     /// It also includes validation to ensure that there are no duplicate handler keys among the registered handlers, 
     /// which could lead to ambiguous behavior when executing handler options. 
     /// This class is essential for facilitating the execution of user-selected options in the console menu system.
+    /// The implemented method runs asynchronously, but can also be used for synchronous actions.
     /// </summary>
     public class ConsoleMenuExecutor : IConsoleMenuExecutor
     {
@@ -35,7 +36,6 @@ namespace ConsoleMenu.Application
             _console = console;
         }
 
-        public async Task<MenuExecutionResult> ExecuteAsync(ConsoleMenuOption option)
         /// <summary>
         /// Executes the provided console menu option based on its kind. For Action options, it will invoke the 
         /// associated action delegate. For Handler options, it will look up and execute the corresponding 
@@ -44,11 +44,12 @@ namespace ConsoleMenu.Application
         /// for user input and clearing the console after execution. It includes validation to ensure that 
         /// Action options have an associated action and that Handler options have a valid handler key and 
         /// corresponding handler registered, throwing exceptions if these conditions are not met.
+        /// This method runs asynchronously, but can also be used for synchronous actions.
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public MenuExecutionResult Execute(ConsoleMenuOption option)
+        public async Task<MenuExecutionResult> ExecuteAsync(ConsoleMenuOption option)
         {
             ArgumentNullException.ThrowIfNull(option);
 
@@ -67,10 +68,8 @@ namespace ConsoleMenu.Application
                     if (string.IsNullOrWhiteSpace(option.HandlerKey))
                         throw new InvalidOperationException($"Option '{option.HandlerKey}' has no handler registered.");
 
-                    var handler = _handlers.FirstOrDefault(x => x.Key == option.HandlerKey);
-
-                    if (handler is null)
-                        throw new InvalidOperationException($"Option '{option.HandlerKey}' has no handler registered.");
+                    var handler = _handlers.FirstOrDefault(x => x.Key == option.HandlerKey) 
+                        ?? throw new InvalidOperationException($"Option '{option.HandlerKey}' has no handler registered.");
 
                     await handler.ExecuteAsync();
                     _console.ContinueAfterInput();

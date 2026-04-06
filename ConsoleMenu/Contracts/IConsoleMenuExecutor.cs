@@ -8,6 +8,7 @@ namespace ConsoleMenu.Contracts
     /// interface will handle the logic for executing different types of menu options 
     /// based on their kind (Action, Handler, or Exit) and will manage any necessary 
     /// interactions with the console or other components of the application.
+    /// The implemented method runs asynchronously, but can also be used for synchronous actions.
     /// </summary>
     public interface IConsoleMenuExecutor
     {
@@ -18,10 +19,10 @@ namespace ConsoleMenu.Contracts
         /// For Exit options, it will return a result indicating that the menu should be exited. 
         /// The method also handles any customizations in the console such as waiting for 
         /// user input and clearing the console after execution.
+        /// This method runs asynchronously, but can also be used for synchronous actions.
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        MenuExecutionResult Execute(ConsoleMenuOption option);
         Task<MenuExecutionResult> ExecuteAsync(ConsoleMenuOption option);
     }
 }

@@ -10,7 +10,7 @@ namespace ConsoleMenu.Application
     /// </summary>
     public sealed class ConsoleMenuOption
     {
-        private ConsoleMenuOption(int id, string value, ConsoleMenuOptionKind kind, Action? action = null, string? handlerKey = null)
+        private ConsoleMenuOption(int id, string value, ConsoleMenuOptionKind kind, Func<Task>? asyncAction = null, string? handlerKey = null)
         {
             if (id <= 0) throw new ArgumentOutOfRangeException("ID must be greater than zero.");
             if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException("Value cannot be empty.");
@@ -18,7 +18,7 @@ namespace ConsoleMenu.Application
             Id = id;
             Value = value;
             Kind = kind;
-            Action = action;
+            AsyncAction = asyncAction;
             HandlerKey = handlerKey;
         }
 
@@ -42,7 +42,7 @@ namespace ConsoleMenu.Application
         /// Action delegate for simple configuration. Must be provided when Kind is Action, 
         /// and should be null when Kind is Handler or Exit.
         /// </summary>
-        public Action? Action { get; }
+        public Func<Task>? AsyncAction { get; }
 
         /// <summary>
         /// Key for handler binding, used when the option kind is Handler. 
@@ -59,6 +59,17 @@ namespace ConsoleMenu.Application
         /// <param name="action"></param>
         /// <returns></returns>
         public static ConsoleMenuOption Create(int id, string value, Action action)
+        {
+            ArgumentNullException.ThrowIfNull(action);
+            return new ConsoleMenuOption(id, value, ConsoleMenuOptionKind.Action, () =>
+            {
+                action();
+                return Task.CompletedTask;
+            });
+        }
+
+
+        public static ConsoleMenuOption CreateAsync(int id, string value, Func<Task> action)
         {
             ArgumentNullException.ThrowIfNull(action);
             return new ConsoleMenuOption(id, value, ConsoleMenuOptionKind.Action, action);

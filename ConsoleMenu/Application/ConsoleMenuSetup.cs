@@ -5,7 +5,9 @@ namespace ConsoleMenu.Application
 {
     /// <summary>
     /// Class for configuration of the console menu. This class serves as 
-    /// the main entry point for setting up and running the console menu in an application.
+    /// the main entry point for setting up and running the console menu in 
+    /// an application. The AddOption method has a different asynchronous 
+    /// version. The Run method works asynchronously by default.
     /// </summary>
     public sealed class ConsoleMenuSetup
     {
@@ -55,6 +57,13 @@ namespace ConsoleMenu.Application
             return this;
         }
 
+        
+        public ConsoleMenuSetup AddOptionAsync(int id, string value, Func<Task> asyncAction)
+        {
+            _options.Add(ConsoleMenuOption.CreateAsync(id, value, asyncAction));
+            return this;
+        }
+
         /// <summary>
         /// Adds an option to the console menu that is linked to a handler. 
         /// This method is used for more complex configurations where the option
@@ -68,12 +77,6 @@ namespace ConsoleMenu.Application
         /// <param name="value"></param>
         /// <param name="handlerKey"></param>
         /// <returns></returns>
-        public ConsoleMenuSetup AddOptionAsync(int id, string value, Func<Task> asyncAction)
-        {
-            _options.Add(ConsoleMenuOption.CreateAsync(id, value, asyncAction));
-            return this;
-        }
-
         public ConsoleMenuSetup AddHandlerOption(int id, string value, string handlerKey)
         {
             _options.Add(ConsoleMenuOption.CreateWithHandler(id, value, handlerKey));
@@ -104,8 +107,9 @@ namespace ConsoleMenu.Application
         /// Otherwise, it continues to prompt the user for another selection. 
         /// This method relies on the selector to obtain valid user input and on the
         /// executor to handle the execution logic for each selected option.
+        /// The method works asynchronously by default, although its name does 
+        /// not include "Async" for simplicity in usage.
         /// </summary>
-        public void Run()
         public async Task Run()
         {
             while (true)

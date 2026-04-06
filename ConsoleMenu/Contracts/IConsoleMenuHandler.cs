@@ -8,8 +8,10 @@
         /// <summary>
         /// Method that will be called when the handler is executed. Implement this 
         /// method with the logic you want to run when the handler is triggered.
+        /// The method runs asynchronously by default to allow for any async 
+        /// operations that may be needed within the handler's logic.
         /// </summary>
-        void Execute();
+        Task ExecuteAsync();
 
         /// <summary>
         /// A unique key for handler binding. When creating a menu option that 
@@ -17,6 +19,5 @@
         /// should be executed when that option is selected.
         /// </summary>
         string Key { get; }
-        Task ExecuteAsync();
     }
 }
