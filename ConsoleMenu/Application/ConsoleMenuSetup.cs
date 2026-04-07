@@ -57,7 +57,19 @@ namespace ConsoleMenu.Application
             return this;
         }
 
-        
+        /// <summary>
+        /// Adds an option to the console menu with a Func of type Task with an 
+        /// asynchronous action. This method is used for simple asynchronous 
+        /// configurations where the option directly executes a provided
+        /// Action delegate when selected. The option is added to the 
+        /// internal list of options, and the method returns the 
+        /// ConsoleMenuSetup instance to allow for fluent 
+        /// chaining of option additions.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        /// <param name="asyncAction"></param>
+        /// <returns></returns>
         public ConsoleMenuSetup AddOptionAsync(int id, string value, Func<Task> asyncAction)
         {
             _options.Add(ConsoleMenuOption.CreateAsync(id, value, asyncAction));

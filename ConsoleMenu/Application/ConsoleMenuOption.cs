@@ -68,7 +68,15 @@ namespace ConsoleMenu.Application
             });
         }
 
-
+        /// <summary>
+        /// Creates a menu option of kind Action, used for simple asynchoronus configuration. 
+        /// The HandlerKey is set to null for this kind, and a Func of type Task with 
+        /// an Action delegate must be provided.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public static ConsoleMenuOption CreateAsync(int id, string value, Func<Task> action)
         {
             ArgumentNullException.ThrowIfNull(action);
