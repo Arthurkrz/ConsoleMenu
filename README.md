@@ -1,4 +1,3 @@
-
 # ConsoleMenuToolKit
 
 A flexible and extensible console menu toolkit for .NET.
