@@ -1,5 +1,5 @@
-﻿using ConsoleMenu.Contracts;
-using ConsoleMenu.Entities;
+﻿using ConsoleMenu.Application;
+using ConsoleMenu.Contracts;
 using ConsoleMenu.Enum;
 
 namespace ConsoleMenu.Tests.Utilities

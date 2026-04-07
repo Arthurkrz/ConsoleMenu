@@ -1,17 +1,45 @@
 ﻿using ConsoleMenu.Contracts;
-using ConsoleMenu.Entities;
 
 namespace ConsoleMenu.Application
 {
+    /// <summary>
+    /// Class responsible for obtaining a menu option from the user. It implements 
+    /// the IConsoleMenuSelector interface and uses an IConsoleWrapper to interact with the console. 
+    /// The class validates the provided options, displays them to the user, and 
+    /// handles user input to ensure a valid selection is made. If the user input is 
+    /// invalid, it prompts the user to try again until a valid option is selected. 
+    /// This class is essential for facilitating user interaction with the console menu system.
+    /// </summary>
     public class ConsoleMenuSelector : IConsoleMenuSelector
     {
-        private readonly IConsoleWrapper _console;
+        private readonly IConsoleMenuWrapper _console;
 
-        public ConsoleMenuSelector(IConsoleWrapper console)
+        /// <summary>
+        /// Constructor for ConsoleMenuSelector, which takes an IConsoleWrapper as a dependency. 
+        /// This allows the selector to perform console operations such as reading user input and 
+        /// writing output. The IConsoleWrapper abstraction enables flexibility in how console 
+        /// interactions are implemented, allowing for custom behavior or testing without relying on direct console calls.
+        /// </summary>
+        /// <param name="console"></param>
+        public ConsoleMenuSelector(IConsoleMenuWrapper console)
         {
             _console = console;
         }
 
+        /// <summary>
+        /// Obtains a menu option from the user. The method first validates that the 
+        /// provided options are not null and contain at least one option. It then 
+        /// checks for duplicate option IDs to ensure that each option can be uniquely identified. 
+        /// The options are displayed to the user, and the method enters a loop where 
+        /// it prompts the user to select an option by entering its ID. The user's input 
+        /// is validated against the available options, and if a valid selection is made, 
+        /// the corresponding ConsoleMenuOption is returned. If the input is invalid, 
+        /// an error message is displayed, and the options are shown again until a valid selection is made.
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public ConsoleMenuOption ObtainOption(IEnumerable<ConsoleMenuOption> options)
         {
             var optionList = options?.ToList() ?? throw new ArgumentNullException(nameof(options));

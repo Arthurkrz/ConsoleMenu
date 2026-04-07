@@ -1,6 +1,5 @@
 ﻿using ConsoleMenu.Application;
 using ConsoleMenu.Contracts;
-using ConsoleMenu.Entities;
 using ConsoleMenu.Enum;
 using ConsoleMenu.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;
@@ -99,7 +98,7 @@ namespace ConsoleMenu.Tests
             services.AddSingleton<IConsoleMenuHandler>(new FakeHandler("key"));
             services.AddSingleton<IConsoleMenuHandler>(new FakeHandler("key"));
 
-            services.AddSingleton<IConsoleWrapper, FakeWrapper>();
+            services.AddSingleton<IConsoleMenuWrapper, FakeWrapper>();
 
             var provider = services.BuildServiceProvider();
 
